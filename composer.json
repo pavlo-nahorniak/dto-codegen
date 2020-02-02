@@ -10,5 +10,8 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^5.0"
     }
 }
