@@ -36,7 +36,9 @@ class NameConverter
         $converterTypes = $this->converterManager->getConverterTypes();
 
         if (!in_array($type, $converterTypes)) {
-            throw new \InvalidArgumentException('Type should be one of ' . implode(', ', self::$availableConvertTypes));
+            throw new \InvalidArgumentException(
+                'Type should be one of ' . implode(', ', $converterTypes)
+            );
         }
 
         // Unset type to which we are going to convert.
@@ -67,7 +69,7 @@ class NameConverter
         // when multiple types are in use.
         foreach ($possibleTypes as $possibleType) {
             $name = $possibleType->beforeConvert($name);
-            $name = $mainConverter->convert($name);
+            $name = $mainConverter->convert($name, $possibleType->getRegExp());
         }
 
         return $name;

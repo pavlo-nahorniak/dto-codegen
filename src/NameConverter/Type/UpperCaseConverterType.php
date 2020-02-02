@@ -55,7 +55,7 @@ class UpperCaseConverterType extends ConverterTypeBase
      */
     public function convert(string $string, string $pattern = null): string
     {
-        return strtoupper($string);
+        return strtoupper(str_replace('_', '', $string));
     }
 
     /**

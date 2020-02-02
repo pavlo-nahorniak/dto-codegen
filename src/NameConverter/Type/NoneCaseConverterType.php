@@ -9,7 +9,7 @@ use App\NameConverter\ConverterTypeBase;
  *
  * @package App\NameConverter\Type
  */
-class NoneConverterType extends ConverterTypeBase
+class NoneCaseConverterType extends ConverterTypeBase
 {
 
     /**

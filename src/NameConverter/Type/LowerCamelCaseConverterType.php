@@ -55,7 +55,7 @@ class LowerCamelCaseConverterType extends ConverterTypeBase
         preg_match_all('/([A-Z])/', $string, $matches);
 
         // If there is at least one uppercase letter then true.
-        return empty($matches[0]);
+        return !empty($matches[0]);
     }
 
     /**
@@ -63,12 +63,16 @@ class LowerCamelCaseConverterType extends ConverterTypeBase
      */
     public function convert(string $string, string $pattern = null): string
     {
+        if (null === $pattern) {
+            return strtolower($string);
+        }
+
         $string = preg_replace_callback(
-          $pattern,
-          function ($matches) {
-              return strtoupper($matches[1]);
-          },
-          $string
+            $pattern,
+            function ($matches) {
+                return strtoupper(trim($matches[1], '_'));
+            },
+            $string
         );
 
         return lcfirst($string);

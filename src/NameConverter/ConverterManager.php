@@ -37,7 +37,8 @@ class ConverterManager
      */
     public function getConverterTypes(): array
     {
-        return array_keys(static::$map);
+        $values = array_keys(static::$map);
+        return array_combine($values, $values);
     }
 
     /**
@@ -52,10 +53,10 @@ class ConverterManager
     public function getConverter(string $type): ConverterTypeInterface
     {
         if (!isset(static::$map[$type])) {
-            throw new \InvalidArgumentException(sprintf('Convert of type %s not found', [$type]));
+            throw new \InvalidArgumentException(sprintf('Convert of type %s not found', $type));
         }
 
-        return call_user_func(static::$map[$type] . '::getInstance()');
+        return call_user_func(static::$map[$type] . '::getInstance');
     }
 
     /**
@@ -74,7 +75,7 @@ class ConverterManager
             $fqcn = static::CONVERTER_NAMESPACE . $className;
 
             if (class_exists($fqcn)) {
-                static::$map[call_user_func([$fqcn . '::getType()'])] = $fqcn;
+                static::$map[call_user_func($fqcn . '::getType')] = $fqcn;
             }
         }
     }

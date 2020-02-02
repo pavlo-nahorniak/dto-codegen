@@ -46,8 +46,7 @@ class SnakeCaseConverterType extends ConverterTypeBase
      */
     public function check(string $string): bool
     {
-        return strpos($string, '_') === false
-          && (strtolower($string) === $string || strtoupper($string) === $string);
+        return strpos($string, '_') !== false;
     }
 
     /**
@@ -55,13 +54,19 @@ class SnakeCaseConverterType extends ConverterTypeBase
      */
     public function convert(string $string, string $pattern = null): string
     {
-        return preg_replace_callback(
-          $pattern,
-          function ($matches) {
-              return '_' . $matches[1];
-          },
-          $string
+        if (null === $pattern) {
+            return strtolower($string);
+        }
+
+        $string = preg_replace_callback(
+            $pattern,
+            function ($matches) {
+                return '_' . strtolower($matches[1]);
+            },
+            $string
         );
+
+        return trim($string, '_');
     }
 
     /**
@@ -69,15 +74,7 @@ class SnakeCaseConverterType extends ConverterTypeBase
      */
     public function getRegExp(): string
     {
-        return '/_([A-Za-z])/';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function beforeConvert(string $string): string
-    {
-        return str_replace('_', '', $string);
+        return '/(_[A-Za-z])/';
     }
 
     /**

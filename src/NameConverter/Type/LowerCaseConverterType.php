@@ -55,7 +55,7 @@ class LowerCaseConverterType extends ConverterTypeBase
      */
     public function convert(string $string, string $pattern = null): string
     {
-        return strtolower($string);
+        return strtolower(str_replace('_', '', $string));
     }
 
     /**
