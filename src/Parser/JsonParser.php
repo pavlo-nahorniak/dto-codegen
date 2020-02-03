@@ -2,7 +2,7 @@
 
 namespace App\Parser;
 
-use App\Entity\Object;
+use App\Entity\ObjectEntity;
 use App\Entity\Property;
 use App\ParserInterface;
 
@@ -31,7 +31,7 @@ class JsonParser implements ParserInterface
             throw new \InvalidArgumentException('JSON is empty. Nothing to parse.');
         }
 
-        return $this->discoverAllObjects($data);
+        return $this->discoverAllObjects($decodedData);
     }
 
     /**
@@ -39,11 +39,11 @@ class JsonParser implements ParserInterface
      * @param string $name
      * @param \stdClass $data
      *
-     * @return \App\Entity\Object
+     * @return \App\Entity\ObjectEntity
      */
     private function createObject(string $name, \stdClass $data)
     {
-        $object = new Object($name);
+        $object = new ObjectEntity($name);
         foreach ((array) $data as $key => $item) {
             $type = $this->discoverPropertyType($item);
             $arrayDepth = substr_count($type, '[]');
@@ -87,7 +87,7 @@ class JsonParser implements ParserInterface
             }
         }
 
-        return 'null';
+        return self::DEFAULT_PROPERTY_TYPE;
     }
 
     /**
@@ -96,7 +96,7 @@ class JsonParser implements ParserInterface
      * @param \stdClass $data
      * @param string $mainObjectName
      *
-     * @return \App\Entity\Object[]
+     * @return \App\Entity\ObjectEntity[]
      */
     private function discoverAllObjects(\stdClass $data, string $mainObjectName = 'MainObject'): array
     {
@@ -108,7 +108,7 @@ class JsonParser implements ParserInterface
                 continue;
             }
 
-            $tmpData = $data[$property->getName()];
+            $tmpData = $data->{$property->getName()};
             for ($i = 0; $i < $property->getArrayDepth(); $i++) {
                 $tmpData = $tmpData[0];
             }

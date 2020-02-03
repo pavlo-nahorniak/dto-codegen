@@ -82,6 +82,6 @@ final class Property
      */
     public function isObject()
     {
-        return strpos($this->name, 'object') === 0;
+        return strpos($this->type, 'object') === 0;
     }
 }

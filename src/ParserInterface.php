@@ -16,7 +16,7 @@ interface ParserInterface
      * @param mixed $data
      *   A data to parse.
      *
-     * @return \App\Entity\Object[]
+     * @return \App\Entity\ObjectEntity[]
      *   List of parsed objects.
      */
     public function parse($data);

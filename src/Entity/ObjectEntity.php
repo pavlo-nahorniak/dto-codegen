@@ -7,7 +7,7 @@ namespace App\Entity;
  *
  * @package App\Entity
  */
-final class Object
+final class ObjectEntity
 {
 
     /**
@@ -32,7 +32,17 @@ final class Object
      */
     public function __construct(string $name)
     {
-        $this->name;
+        $this->name = $name;
+    }
+
+    /**
+     * Gets a name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
