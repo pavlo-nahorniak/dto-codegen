@@ -3,6 +3,7 @@
 namespace App\NameConverter\Type;
 
 use App\NameConverter\ConverterTypeBase;
+use App\PluginInterface;
 
 /**
  * Class LowerCamelCaseConverterType.
@@ -32,7 +33,7 @@ class LowerCamelCaseConverterType extends ConverterTypeBase
      * @return self
      *   The converter.
      */
-    public static function getInstance(): self
+    public static function getInstance(): PluginInterface
     {
         if (!isset(self::$instance)) {
             return new static();
@@ -89,7 +90,7 @@ class LowerCamelCaseConverterType extends ConverterTypeBase
     /**
      * {@inheritDoc}
      */
-    public static function getType(): string
+    public static function getPluginId(): string
     {
         return 'lowerCamelCase';
     }

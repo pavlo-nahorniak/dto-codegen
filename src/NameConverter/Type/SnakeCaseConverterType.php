@@ -3,6 +3,7 @@
 namespace App\NameConverter\Type;
 
 use App\NameConverter\ConverterTypeBase;
+use App\PluginInterface;
 
 /**
  * Class SnakeCaseConverterType.
@@ -32,7 +33,7 @@ class SnakeCaseConverterType extends ConverterTypeBase
      * @return self
      *   The converter.
      */
-    public static function getInstance(): self
+    public static function getInstance(): PluginInterface
     {
         if (!isset(self::$instance)) {
             return new static();
@@ -80,7 +81,7 @@ class SnakeCaseConverterType extends ConverterTypeBase
     /**
      * {@inheritDoc}
      */
-    public static function getType(): string
+    public static function getPluginId(): string
     {
         return 'snake_case';
     }

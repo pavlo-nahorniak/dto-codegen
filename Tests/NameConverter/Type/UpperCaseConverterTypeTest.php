@@ -5,7 +5,7 @@ namespace App\Tests\NameConverter\Type;
 use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\UpperCaseConverterType;
 
-class UpperCaseConverterTypeTest extends TypeTestCase
+class UpperCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
     protected function getConverterInstance(): ConverterTypeInterface

@@ -27,13 +27,21 @@ class NameConverter
         $this->converterManager = $converterManager;
     }
 
-    public function convert(string $name, string $type = 'lowercase')
+    /**
+     * Converts a name to a given case.
+     *
+     * @param string $name
+     * @param string $type
+     *
+     * @return string
+     */
+    public function convert(string $name, string $type = 'lowercase'): string
     {
         if (empty($name)) {
             throw new \InvalidArgumentException('Name should not be an empty string.');
         }
 
-        $converterTypes = $this->converterManager->getConverterTypes();
+        $converterTypes = $this->converterManager->getAvailablePlugins();
 
         if (!in_array($type, $converterTypes)) {
             throw new \InvalidArgumentException(
@@ -50,10 +58,10 @@ class NameConverter
         /** @var \App\NameConverter\ConverterTypeInterface[] $possibleTypes */
         $possibleTypes = [];
         foreach ($converterTypes as $converterType) {
-            $converter = $this->converterManager->getConverter($converterType);
+            $converter = $this->converterManager->getPluginInstance($converterType);
 
             if ($converter->check($name)) {
-                $tmpType = $converter::getType();
+                $tmpType = $converter::getPluginId();
                 $possibleTypes[$tmpType] = $converter;
             }
         }
@@ -63,12 +71,11 @@ class NameConverter
             return $name;
         }
 
-        $mainConverter = $this->converterManager->getConverter($type);
+        $mainConverter = $this->converterManager->getPluginInstance($type);
         // In general we need only one `beforeConvert` and one `convert`
         // foreach is needed in case when we have issues with namings
         // when multiple types are in use.
         foreach ($possibleTypes as $possibleType) {
-            $name = $possibleType->beforeConvert($name);
             $name = $mainConverter->convert($name, $possibleType->getRegExp());
         }
 

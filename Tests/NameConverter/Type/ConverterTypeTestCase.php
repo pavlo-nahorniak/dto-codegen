@@ -5,7 +5,7 @@ namespace App\Tests\NameConverter\Type;
 use App\NameConverter\ConverterTypeInterface;
 use PHPUnit\Framework\TestCase;
 
-abstract class TypeTestCase extends TestCase
+abstract class ConverterTypeTestCase extends TestCase
 {
 
     public function testCheck()
@@ -17,7 +17,7 @@ abstract class TypeTestCase extends TestCase
                 $converter->check($case),
                 sprintf(
                     'Converter type %s check should return true on string %s',
-                    $converter::getType(),
+                    $converter::getPluginId(),
                     $case
                 )
             );
@@ -28,7 +28,7 @@ abstract class TypeTestCase extends TestCase
                 $converter->check($case),
                 sprintf(
                     'Converter type %s check should return false on string %s',
-                    $converter::getType(),
+                    $converter::getPluginId(),
                     $case
                 )
             );

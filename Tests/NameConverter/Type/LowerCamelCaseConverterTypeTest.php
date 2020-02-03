@@ -5,7 +5,7 @@ namespace App\Tests\NameConverter\Type;
 use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\LowerCamelCaseConverterType;
 
-class LowerCamelCaseConverterTypeTest extends TypeTestCase
+class LowerCamelCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
     protected function getConverterInstance(): ConverterTypeInterface

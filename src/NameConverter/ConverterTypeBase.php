@@ -17,12 +17,4 @@ abstract class ConverterTypeBase implements ConverterTypeInterface
     {
         return null;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function beforeConvert(string $string): string
-    {
-        return $string;
-    }
 }

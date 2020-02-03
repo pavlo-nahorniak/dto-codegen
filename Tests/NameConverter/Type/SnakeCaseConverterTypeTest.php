@@ -5,7 +5,7 @@ namespace App\Tests\NameConverter\Type;
 use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\SnakeCaseConverterType;
 
-class SnakeCaseConverterTypeTest extends TypeTestCase
+class SnakeCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
     protected function getConverterInstance(): ConverterTypeInterface

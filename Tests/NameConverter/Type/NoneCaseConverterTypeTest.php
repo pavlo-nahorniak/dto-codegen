@@ -5,7 +5,7 @@ namespace App\Tests\NameConverter\Type;
 use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\NoneCaseConverterType;
 
-class NoneCaseConverterTypeTest extends TypeTestCase
+class NoneCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
     protected function getConverterInstance(): ConverterTypeInterface
