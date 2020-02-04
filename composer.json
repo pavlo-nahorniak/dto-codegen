@@ -2,6 +2,7 @@
     "require": {
         "ext-json": "*",
         "symfony/console": "^5.0",
+        "symfony/yaml": "^5.0",
         "twig/twig": "^3.0"
     },
     "autoload": {
