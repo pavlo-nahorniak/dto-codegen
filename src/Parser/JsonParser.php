@@ -100,11 +100,21 @@ class JsonParser implements ParserInterface
      */
     private function discoverAllObjects(\stdClass $data, string $mainObjectName = 'MainObject'): array
     {
-        $objects = [];
+        static $objects;
+
+        if (!isset($objects)) {
+            $objects = [];
+        }
+
         $object = $this->createObject($mainObjectName, $data);
-        $objects[] = $object;
+        $objects[$object->getName()] = $object;
         foreach ($object->getProperties() as $property) {
             if (!$property->isObject()) {
+                continue;
+            }
+
+            // This object is already discovered, skip it.
+            if (isset($objects[$property->getName()])) {
                 continue;
             }
 
@@ -113,7 +123,7 @@ class JsonParser implements ParserInterface
                 $tmpData = $tmpData[0];
             }
 
-            $objects = array_merge($objects, $this->discoverAllObjects($tmpData, $property->getName()));
+            $this->discoverAllObjects($tmpData, $property->getName());
         }
 
         return $objects;

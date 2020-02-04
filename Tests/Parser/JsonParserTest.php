@@ -26,6 +26,16 @@ class JsonParserTest extends TestCase
                 2,
                 3,
             ],
+            'multidimensional_array_object' => [
+                [
+                    [
+                        'bool' => false,
+                    ],
+                    [
+                        'bool' => false,
+                    ],
+                ],
+            ],
         ],
         'multidimensional_array_string' => [
             [
@@ -65,6 +75,7 @@ class JsonParserTest extends TestCase
             'float' => 'float',
             'bool' => 'bool',
             'array_int' => 'int[]',
+            'multidimensional_array_object' => 'object[][]',
         ],
         'multidimensional_array_object' => [
             'bool' => 'bool',
