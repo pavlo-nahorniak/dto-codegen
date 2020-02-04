@@ -1,0 +1,3 @@
+{% for property in list %}
+  {{- include('property.html.twig', {name: property.name, type: property.type}) -}}
+{% endfor %}

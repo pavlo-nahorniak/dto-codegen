@@ -1,0 +1,16 @@
+{{ '<?php' }}
+
+{% block block_namespace %}
+  {%- if namespace -%}
+    {{ 'namespace ' ~ namespace }};
+  {%- endif %}
+
+{% endblock %}
+
+{% block class %}
+  {{- 'class ' ~ classname ~ ' {' -}}
+  {%- block block_properties -%}
+    {{- include('properties-list.html.twig', {list: properties}) -}}
+  {% endblock %}
+  {{- "\n}\n" -}}
+{% endblock %}
