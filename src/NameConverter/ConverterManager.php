@@ -12,23 +12,7 @@ use App\PluginManagerBase;
 class ConverterManager extends PluginManagerBase
 {
 
-    private const CONVERTERS_DIR = __DIR__ . '/Type';
+    protected const PLUGINS_DIR = __DIR__ . '/Type';
 
-    private const CONVERTER_NAMESPACE = '\\App\\NameConverter\\Type\\';
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getPluginsDirectory(): string
-    {
-        return self::CONVERTERS_DIR;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getPluginsNamespace(): string
-    {
-        return self::CONVERTER_NAMESPACE;
-    }
+    protected const PLUGIN_NAMESPACE = '\\App\\NameConverter\\Type\\';
 }

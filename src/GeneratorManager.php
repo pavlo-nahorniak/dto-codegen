@@ -10,23 +10,7 @@ namespace App;
 class GeneratorManager extends PluginManagerBase
 {
 
-    private const GENERATORS_DIR = __DIR__ . '/Generator';
+    protected const PLUGINS_DIR = __DIR__ . '/Generator';
 
-    private const GENERATOR_NAMESPACE = '\\App\\Generator\\';
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getPluginsDirectory(): string
-    {
-        return self::GENERATORS_DIR;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getPluginsNamespace(): string
-    {
-        return self::GENERATOR_NAMESPACE;
-    }
+    protected const PLUGIN_NAMESPACE = '\\App\\Generator\\';
 }

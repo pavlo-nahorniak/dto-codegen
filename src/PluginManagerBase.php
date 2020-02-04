@@ -9,6 +9,9 @@ namespace App;
  */
 abstract class PluginManagerBase implements PluginManagerInterface
 {
+    protected const PLUGINS_DIR = '';
+
+    protected const PLUGIN_NAMESPACE = '';
 
     /**
      * Map of all converters keyed by type.
@@ -68,16 +71,18 @@ abstract class PluginManagerBase implements PluginManagerInterface
     }
 
     /**
-     * Gets a directory where all plugins are located.
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    abstract protected function getPluginsDirectory(): string;
+    protected function getPluginsDirectory(): string
+    {
+        return static::PLUGINS_DIR;
+    }
 
     /**
-     * Gets a namespace where all plugins are located.
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    abstract protected function getPluginsNamespace(): string;
+    protected function getPluginsNamespace(): string
+    {
+        return static::PLUGIN_NAMESPACE;
+    }
 }
