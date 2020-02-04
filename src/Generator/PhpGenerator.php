@@ -49,15 +49,19 @@ class PhpGenerator extends GeneratorBase
 
             foreach ($objectEntity->getProperties() as $property) {
                 if ($property->isObject()) {
-                    $propertyClassName = $this->nameConverter->convert(
-                        $property->getName(),
-                        $configs['classname_case']
-                    );
+                    if (isset($structure[$property->getObjectTypeName()])) {
+                        $propertyClassName = $this->nameConverter->convert(
+                            $property->getObjectTypeName(),
+                            $configs['classname_case']
+                        );
 
-                    $type = str_replace('object', $propertyClassName, $property->getType());
+                        $type = str_replace('object', $propertyClassName, $property->getType());
 
-                    if ($configs['prepend_namespaces']) {
-                        $type = '\\' . $namespace . '\\' . $type;
+                        if ($configs['prepend_namespaces']) {
+                            $type = '\\' . $namespace . '\\' . $type;
+                        }
+                    } else {
+                        $type = 'mixed';
                     }
                 } else {
                     $type = $property->getType();

@@ -32,17 +32,26 @@ final class Property
     private $arrayDepth;
 
     /**
+     * Defines type of object the property is referenced to.
+     *
+     * @var string
+     */
+    private $objectTypeName;
+
+    /**
      * Property constructor.
      *
      * @param string $name
      * @param string $type
      * @param int $arrayDepth
+     * @param string $objectTypeName
      */
-    public function __construct(string $name, string $type, int $arrayDepth)
+    public function __construct(string $name, string $type, int $arrayDepth, string $objectTypeName = null)
     {
         $this->name = $name;
         $this->type = $type;
         $this->arrayDepth = $arrayDepth;
+        $this->objectTypeName = $objectTypeName;
     }
 
     /**
@@ -83,5 +92,17 @@ final class Property
     public function isObject()
     {
         return strpos($this->type, 'object') === 0;
+    }
+
+    /**
+     * Gets a type of object the property is referenced to.
+     *
+     * If null equals to property name.
+     *
+     * @return string
+     */
+    public function getObjectTypeName()
+    {
+        return $this->objectTypeName ?? $this->name;
     }
 }
