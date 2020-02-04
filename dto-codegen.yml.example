@@ -1,0 +1,9 @@
+fromFile: swagger-api.json
+#fromString: wqwe
+parser: swagger
+#generator: php
+namespace: \App\DTO
+classname_case: 'UpperCamelCase'
+property_case: 'lowerCamelCase'
+prepend_namespaces: true
+output_dir: './output'
