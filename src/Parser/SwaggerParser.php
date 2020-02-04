@@ -5,6 +5,7 @@ namespace App\Parser;
 use App\Entity\ObjectEntity;
 use App\Entity\Property;
 use App\ParserInterface;
+use App\PluginInterface;
 
 /**
  * Class SwaggerParser.
@@ -22,6 +23,36 @@ class SwaggerParser implements ParserInterface
         'string' => 'string',
         'boolean' => 'bool',
     ];
+
+    /**
+     * Instance of the class.
+     *
+     * @var self
+     */
+    private static $instance;
+
+    /**
+     * Singleton instance constructor.
+     *
+     * @return self
+     *   The parser.
+     */
+    public static function getInstance(): PluginInterface
+    {
+        if (!isset(self::$instance)) {
+            return new static();
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getPluginId(): string
+    {
+        return 'swagger';
+    }
 
     /**
      * @inheritDoc

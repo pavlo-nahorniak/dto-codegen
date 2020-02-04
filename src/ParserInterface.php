@@ -7,7 +7,7 @@ namespace App;
  *
  * @package App
  */
-interface ParserInterface
+interface ParserInterface extends PluginInterface
 {
 
     /**
