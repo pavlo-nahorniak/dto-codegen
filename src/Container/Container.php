@@ -2,6 +2,7 @@
 
 namespace App\Container;
 
+use App\FileSystem;
 use App\Generator\GeneratorManager;
 use App\NameConverter\ConverterManager;
 use App\NameConverter\NameConverter;
@@ -28,7 +29,7 @@ class Container implements ContainerInterface
         ],
         'renderer' => [
             'class' => Renderer::class,
-            'arguments' => ['@twig.environment'],
+            'arguments' => ['@twig.environment', '@file_system'],
         ],
         'converter.manager' => [
             'class' => ConverterManager::class,
@@ -47,6 +48,9 @@ class Container implements ContainerInterface
         'twig.environment' => [
             'class' => Environment::class,
             'arguments' => ['@twig.filesystem_loader'],
+        ],
+        'file_system' => [
+            'class' => FileSystem::class,
         ],
     ];
 

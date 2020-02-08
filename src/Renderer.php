@@ -16,9 +16,15 @@ class Renderer
      */
     private $twig;
 
-    public function __construct(Environment $environment)
+    /**
+     * @var \App\FileSystem
+     */
+    private $fileSystem;
+
+    public function __construct(Environment $environment, FileSystem $fileSystem)
     {
         $this->twig = $environment;
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -35,6 +41,6 @@ class Renderer
     public function render(string $fileName, string $template, ?array $vars)
     {
         $content = $this->twig->render($template, $vars);
-        file_put_contents($fileName, $content);
+        $this->fileSystem->saveFile($fileName, $content);
     }
 }
