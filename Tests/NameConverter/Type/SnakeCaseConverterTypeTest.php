@@ -2,15 +2,14 @@
 
 namespace App\Tests\NameConverter\Type;
 
-use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\SnakeCaseConverterType;
 
 class SnakeCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return SnakeCaseConverterType::getInstance();
+        return SnakeCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array

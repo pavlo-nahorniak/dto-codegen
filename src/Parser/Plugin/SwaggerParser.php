@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Parser;
+namespace App\Parser\Plugin;
 
 use App\Entity\ObjectEntity;
 use App\Entity\Property;
-use App\ParserInterface;
-use App\PluginInterface;
+use App\Parser\ParserInterface;
 
 /**
  * Class SwaggerParser.
@@ -23,28 +22,6 @@ class SwaggerParser implements ParserInterface
         'string' => 'string',
         'boolean' => 'bool',
     ];
-
-    /**
-     * Instance of the class.
-     *
-     * @var self
-     */
-    private static $instance;
-
-    /**
-     * Singleton instance constructor.
-     *
-     * @return self
-     *   The parser.
-     */
-    public static function getInstance(): PluginInterface
-    {
-        if (!isset(self::$instance)) {
-            return new static();
-        }
-
-        return self::$instance;
-    }
 
     /**
      * {@inheritDoc}
@@ -160,7 +137,7 @@ class SwaggerParser implements ParserInterface
     private function discoverPropertyObjectTypeName(array $propertyData): ?string
     {
         if (isset($propertyData['$ref'])) {
-            return str_replace('#/definitions/', '', $propertyData['$ref']);
+            return str_replace(self::DEF_NAMESPACE, '', $propertyData['$ref']);
         }
 
         if (isset($propertyData['type'])) {

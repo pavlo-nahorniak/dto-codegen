@@ -1,6 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Parser;
+
+use App\Plugin\PluginInterface;
 
 /**
  * Interface ParserInterface.

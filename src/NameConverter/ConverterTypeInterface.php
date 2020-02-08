@@ -2,7 +2,7 @@
 
 namespace App\NameConverter;
 
-use App\PluginInterface;
+use App\Plugin\PluginInterface;
 
 /**
  * Interface ConverterTypeInterface.

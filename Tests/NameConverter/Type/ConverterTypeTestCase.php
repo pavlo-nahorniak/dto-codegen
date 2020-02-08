@@ -2,6 +2,7 @@
 
 namespace App\Tests\NameConverter\Type;
 
+use App\Container\Container;
 use App\NameConverter\ConverterTypeInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +36,14 @@ abstract class ConverterTypeTestCase extends TestCase
         }
     }
 
-    abstract protected function getConverterInstance(): ConverterTypeInterface;
+    protected function getConverterInstance(): ConverterTypeInterface
+    {
+        return Container::getInstance()
+            ->get('converter.manager')
+            ->getPluginInstance($this->getConverterId());
+    }
+
+    abstract protected function getConverterId(): string;
 
     abstract protected function getSuccessCases(): array;
 

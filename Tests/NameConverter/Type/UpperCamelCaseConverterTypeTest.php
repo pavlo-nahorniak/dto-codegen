@@ -2,15 +2,14 @@
 
 namespace App\Tests\NameConverter\Type;
 
-use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\UpperCamelCaseConverterType;
 
 class UpperCamelCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return UpperCamelCaseConverterType::getInstance();
+        return UpperCamelCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array

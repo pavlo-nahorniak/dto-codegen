@@ -2,15 +2,14 @@
 
 namespace App\Tests\NameConverter\Type;
 
-use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\LowerCaseConverterType;
 
 class LowerCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return LowerCaseConverterType::getInstance();
+        return LowerCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array

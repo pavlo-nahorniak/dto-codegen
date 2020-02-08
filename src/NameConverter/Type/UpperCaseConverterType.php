@@ -3,7 +3,6 @@
 namespace App\NameConverter\Type;
 
 use App\NameConverter\ConverterTypeBase;
-use App\PluginInterface;
 
 /**
  * Class UpperCaseConverterType.
@@ -12,35 +11,6 @@ use App\PluginInterface;
  */
 class UpperCaseConverterType extends ConverterTypeBase
 {
-
-    /**
-     * Instance of the class.
-     *
-     * @var self
-     */
-    private static $instance;
-
-    /**
-     * Disable constructor.
-     */
-    private function __construct()
-    {
-    }
-
-    /**
-     * Singleton instance constructor.
-     *
-     * @return self
-     *   The converter.
-     */
-    public static function getInstance(): PluginInterface
-    {
-        if (!isset(self::$instance)) {
-            return new static();
-        }
-
-        return self::$instance;
-    }
 
     /**
      * {@inheritDoc}

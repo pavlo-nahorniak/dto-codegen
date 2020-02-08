@@ -2,15 +2,14 @@
 
 namespace App\Tests\NameConverter\Type;
 
-use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\UpperCaseConverterType;
 
 class UpperCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return UpperCaseConverterType::getInstance();
+        return UpperCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array

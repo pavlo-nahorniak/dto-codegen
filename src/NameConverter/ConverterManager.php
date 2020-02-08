@@ -2,7 +2,7 @@
 
 namespace App\NameConverter;
 
-use App\PluginManagerBase;
+use App\Plugin\PluginManagerBase;
 
 /**
  * Class ConverterManager.

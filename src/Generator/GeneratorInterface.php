@@ -1,6 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Generator;
+
+use App\Plugin\PluginInterface;
 
 /**
  * Interface GeneratorInterface.

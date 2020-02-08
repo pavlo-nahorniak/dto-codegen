@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Plugin;
 
 interface PluginManagerInterface
 {
@@ -10,7 +10,7 @@ interface PluginManagerInterface
      *
      * @param string $pluginId
      *
-     * @return \App\PluginInterface
+     * @return \App\Plugin\PluginInterface
      */
     public function getPluginInstance(string $pluginId): PluginInterface;
 

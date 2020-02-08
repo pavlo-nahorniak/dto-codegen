@@ -1,6 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Plugin;
+
+use App\Container\Container;
 
 /**
  * Base PluginManager class.
@@ -9,23 +11,32 @@ namespace App;
  */
 abstract class PluginManagerBase implements PluginManagerInterface
 {
+
     protected const PLUGINS_DIR = '';
 
     protected const PLUGIN_NAMESPACE = '';
 
     /**
-     * Map of all converters keyed by type.
+     * Map of all plugins keyed by type.
      *
      * @var array
      */
     protected $map = [];
 
     /**
-     * ConverterManager constructor.
+     * Map of all initiated plugins.
+     *
+     * @var \App\Plugin\PluginInterface[]
+     */
+    private $pluginInstances;
+
+    /**
+     * PluginManager constructor.
      */
     public function __construct()
     {
         $this->findAll();
+        $this->pluginInstances = [];
     }
 
     /**
@@ -38,7 +49,7 @@ abstract class PluginManagerBase implements PluginManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getPluginInstance(string $pluginId): PluginInterface
     {
@@ -46,7 +57,17 @@ abstract class PluginManagerBase implements PluginManagerInterface
             throw new \InvalidArgumentException(sprintf('Plugin of type %s not found', $pluginId));
         }
 
-        return call_user_func($this->map[$pluginId] . '::getInstance');
+        if (!isset($this->pluginInstances[$pluginId])) {
+            if (in_array(ContainerFactoryPluginInterface::class, class_implements($this->map[$pluginId]))) {
+                $instance = call_user_func($this->map[$pluginId] . '::create', $this->getContainer());
+            } else {
+                $instance = new $this->map[$pluginId]();
+            }
+
+            $this->pluginInstances[$pluginId] = $instance;
+        }
+
+        return $this->pluginInstances[$pluginId];
     }
 
     /**
@@ -84,5 +105,15 @@ abstract class PluginManagerBase implements PluginManagerInterface
     protected function getPluginsNamespace(): string
     {
         return static::PLUGIN_NAMESPACE;
+    }
+
+    /**
+     * Gets an instance of container.
+     *
+     * @return \App\Container\Container
+     */
+    protected function getContainer()
+    {
+        return Container::getInstance();
     }
 }

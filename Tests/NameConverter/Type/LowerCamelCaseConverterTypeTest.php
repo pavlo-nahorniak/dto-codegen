@@ -8,9 +8,9 @@ use App\NameConverter\Type\LowerCamelCaseConverterType;
 class LowerCamelCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return LowerCamelCaseConverterType::getInstance();
+        return LowerCamelCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array

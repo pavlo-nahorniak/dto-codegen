@@ -2,7 +2,8 @@
 
 namespace App\Tests\Parser;
 
-use App\Parser\JsonParser;
+use App\Container\Container;
+use App\Parser\Plugin\JsonParser;
 use PHPUnit\Framework\TestCase;
 
 class JsonParserTest extends TestCase
@@ -89,13 +90,15 @@ class JsonParserTest extends TestCase
     ];
 
     /**
-     * @var \App\Parser\JsonParser
+     * @var \App\Parser\Plugin\JsonParser
      */
     private $jsonParser;
 
     protected function setUp(): void
     {
-        $this->jsonParser = new JsonParser();
+        $this->jsonParser = Container::getInstance()
+            ->get('parser.manager')
+            ->getPluginInstance(JsonParser::getPluginId());
     }
 
     public function testParse()

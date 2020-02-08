@@ -3,20 +3,22 @@
 namespace App;
 
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 
 class Renderer
 {
+
+    public const TWIG_DEFAULT_TEMPLATES = __DIR__ . '/../templates';
+
+    public const TWIG_ROOT_PATH = __DIR__ . '/../templates';
 
     /**
      * @var \Twig\Environment
      */
     private $twig;
 
-    public function __construct()
+    public function __construct(Environment $environment)
     {
-        $loader = new FilesystemLoader([realpath(__DIR__ . '/../templates')], __DIR__ . '/../templates');
-        $this->twig = new Environment($loader);
+        $this->twig = $environment;
     }
 
     /**

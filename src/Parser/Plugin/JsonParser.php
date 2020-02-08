@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Parser;
+namespace App\Parser\Plugin;
 
 use App\Entity\ObjectEntity;
 use App\Entity\Property;
-use App\ParserInterface;
-use App\PluginInterface;
+use App\Parser\ParserInterface;
+use App\Plugin\PluginInterface;
 
 /**
  * Class JsonParser.
@@ -16,28 +16,6 @@ class JsonParser implements ParserInterface
 {
 
     private const DEFAULT_PROPERTY_TYPE = 'string';
-
-    /**
-     * Instance of the class.
-     *
-     * @var self
-     */
-    private static $instance;
-
-    /**
-     * Singleton instance constructor.
-     *
-     * @return self
-     *   The parser.
-     */
-    public static function getInstance(): PluginInterface
-    {
-        if (!isset(self::$instance)) {
-            return new static();
-        }
-
-        return self::$instance;
-    }
 
     /**
      * {@inheritDoc}

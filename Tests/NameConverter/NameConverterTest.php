@@ -2,8 +2,7 @@
 
 namespace App\Tests\NameConverter;
 
-use App\NameConverter\ConverterManager;
-use App\NameConverter\NameConverter;
+use App\Container\Container;
 use PHPUnit\Framework\TestCase;
 
 class NameConverterTest extends TestCase
@@ -199,7 +198,7 @@ class NameConverterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->nameConverter = new NameConverter(new ConverterManager());
+        $this->nameConverter = Container::getInstance()->get('name_converter');
     }
 
     public function testConvert()

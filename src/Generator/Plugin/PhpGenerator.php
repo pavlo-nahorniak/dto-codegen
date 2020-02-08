@@ -1,37 +1,11 @@
 <?php
 
-namespace App\Generator;
+namespace App\Generator\Plugin;
 
-use App\GeneratorBase;
-use App\NameConverter\ConverterManager;
-use App\NameConverter\NameConverter;
-use App\PluginInterface;
-use App\Renderer;
+use App\Generator\GeneratorBase;
 
 class PhpGenerator extends GeneratorBase
 {
-
-    /**
-     * Instance of the class.
-     *
-     * @var self
-     */
-    private static $instance;
-
-    /**
-     * Singleton instance constructor.
-     *
-     * @return self
-     *   The generator.
-     */
-    public static function getInstance(): PluginInterface
-    {
-        if (!isset(self::$instance)) {
-            return new static(new Renderer(), new NameConverter(new ConverterManager()));
-        }
-
-        return self::$instance;
-    }
 
     /**
      * {@inheritDoc}

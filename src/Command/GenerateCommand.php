@@ -2,8 +2,7 @@
 
 namespace App\Command;
 
-use App\GeneratorManager;
-use App\ParserManager;
+use App\Container\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,6 +22,23 @@ class GenerateCommand extends Command
      * {@inheritDoc}
      */
     protected static $defaultName = 'generate';
+
+    /**
+     * @var \App\ParserManager
+     */
+    private $parserManager;
+
+    /**
+     * @var \App\GeneratorManager
+     */
+    private $generatorManager;
+
+    public function __construct(string $name = null)
+    {
+        parent::__construct($name);
+        $this->parserManager = $this->getContainer()->get('parser.manager');
+        $this->generatorManager = $this->getContainer()->get('generator.manager');
+    }
 
     /**
      * {@inheritDoc}
@@ -51,13 +67,12 @@ class GenerateCommand extends Command
             throw new InvalidOptionException('Config file option should not be empty!');
         }
 
-        $parserManager = new ParserManager();
-        if (!in_array($config['parser'], $parserManager->getAvailablePlugins())) {
+        if (!in_array($config['parser'], $this->parserManager->getAvailablePlugins())) {
             throw new InvalidOptionException(
                 sprintf(
                     'There is no parser %s! Available list of parsers: %s',
                     $config['parser'],
-                    implode(', ', $parserManager->getAvailablePlugins())
+                    implode(', ', $this->parserManager->getAvailablePlugins())
                 )
             );
         }
@@ -72,12 +87,12 @@ class GenerateCommand extends Command
             throw new InvalidOptionException('Unable to read the data.');
         }
 
-        $parser = $parserManager->getPluginInstance($config['parser']);
+        /** @var \App\Parser\ParserInterface $parser */
+        $parser = $this->parserManager->getPluginInstance($config['parser']);
         $structure = $parser->parse($data);
 
-        $generatorManager = new GeneratorManager();
-        /** @var \App\GeneratorInterface $generator */
-        $generator = $generatorManager->getPluginInstance($config['generator']);
+        /** @var \App\Generator\GeneratorInterface $generator */
+        $generator = $this->generatorManager->getPluginInstance($config['generator']);
 
         $generatorConfigs = $config;
         unset($generatorConfigs['fromFile']);
@@ -129,5 +144,15 @@ class GenerateCommand extends Command
         $config['prepend_namespaces'] = $config['prepend_namespaces'] ?? false;
 
         return $config;
+    }
+
+    /**
+     * Gets a container.
+     *
+     * @return \App\Container\Container
+     */
+    private function getContainer()
+    {
+        return Container::getInstance();
     }
 }

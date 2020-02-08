@@ -2,15 +2,14 @@
 
 namespace App\Tests\NameConverter\Type;
 
-use App\NameConverter\ConverterTypeInterface;
 use App\NameConverter\Type\NoneCaseConverterType;
 
 class NoneCaseConverterTypeTest extends ConverterTypeTestCase
 {
 
-    protected function getConverterInstance(): ConverterTypeInterface
+    protected function getConverterId(): string
     {
-        return NoneCaseConverterType::getInstance();
+        return NoneCaseConverterType::getPluginId();
     }
 
     protected function getSuccessCases(): array
